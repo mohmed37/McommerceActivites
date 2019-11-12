@@ -1,9 +1,11 @@
 package com.clientui.controller;
 
 import com.clientui.beans.CommandeBean;
+import com.clientui.beans.ExpeditionBean;
 import com.clientui.beans.PaiementBean;
 import com.clientui.beans.ProductBean;
 import com.clientui.proxies.MicroserviceCommandeProxy;
+import com.clientui.proxies.MicroserviceExpeditionProxy;
 import com.clientui.proxies.MicroservicePaiementProxy;
 import com.clientui.proxies.MicroserviceProduitsProxy;
 import org.slf4j.Logger;
@@ -33,6 +35,9 @@ public class ClientController {
 
     @Autowired
     private MicroservicePaiementProxy paiementProxy;
+    @Autowired
+    private MicroserviceExpeditionProxy expeditionProxy;
+
 
 
     Logger log = LoggerFactory.getLogger(this.getClass());
@@ -129,4 +134,20 @@ public class ClientController {
 
         return ThreadLocalRandom.current().nextLong(1000000000000000L,9000000000000000L );
     }
+
+    /*
+     * Étape (8)
+     * Opération qui récupère les détails d'une expedition
+     * On passe l'objet "suivi" récupéré et qui contient les détails en question à  EtatExpedition.html
+     * */
+    @RequestMapping("/suivi/{id}")
+    public String EtatExpedition(@PathVariable int id,  Model model){
+
+        ExpeditionBean expedition = expeditionProxy.recupererUneExpedition(id);
+
+        model.addAttribute("expedition", expedition);
+
+        return "EtatExpedition";
+    }
+
 }

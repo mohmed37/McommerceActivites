@@ -9,7 +9,7 @@ public class FeignConfig {
 
     @Bean
     public BasicAuthRequestInterceptor mBasicAuthRequestInterceptor(){
-        return  new BasicAuthRequestInterceptor("utilisateur", "mdp");
+        return  new BasicAuthRequestInterceptor("utilisateur", "04101972");
     }
 
 }
